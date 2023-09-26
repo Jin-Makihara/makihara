@@ -1,0 +1,137 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.product-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.content {
+    padding: 20px;
+    border: 1px solid black;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    width: 150px;
+}
+
+#search,
+.form-group select,
+#product_name,
+#company_name,
+#price,
+#stock,
+#comment {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+#product_image {
+    margin-right: 10px;
+}
+
+.edit-button, .search-button, .detail-button, .delete-button, .register-button, .cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.search-button {
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.detail-button {
+    background-color: #007bff;
+    color: white;
+    margin-right: 5px;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 5px;
+}
+
+.edit-button, .register-button {
+    background-color: orange;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-button, .search-button:hover, .detail-button:hover, .delete-button:hover, .register-button:hover, .cancel-button:hover {
+    filter: brightness(85%);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: white;
+    font-weight: bold;
+}
+
+td img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    width: 120px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.detail-value {
+    flex: 1;
+    display: flex; /* 追加 */
+    align-items: center; /* 追加 */
+}

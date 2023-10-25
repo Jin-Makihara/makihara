@@ -31,13 +31,17 @@ class ProductController extends Controller
         $companies = Company::all();
 
         return view('products.index', compact('products', 'companies'));
+
     }
 
 
     public function create()
     {
         // 新規プロダクトの作成画面表示
-        return view('products.create');
+        $query = Product::query();
+        $products = $query->get();
+        $companies = Company::all();
+        return view('products.create',compact('products','companies'));
     }
 
 
@@ -108,7 +112,8 @@ class ProductController extends Controller
         // 商品画像を保存
         if ($request->hasFile('product_image')) {
             $imagePath = $request->file('product_image')->store('product_images', 'public');
-            $product->image = $imagePath;
+            $product->img_path = $imagePath;
+            //$product->image = $imagePath;
         }
 
         $product->save();

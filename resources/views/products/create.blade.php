@@ -20,6 +20,7 @@
                 <div class="form-group">
                     <label for="company_name">メーカー名</label>
                     <input type="text" name="company_name" id="company_name" required>
+
                 </div>
                 <div class="form-group">
                     <label for="price">価格</label>

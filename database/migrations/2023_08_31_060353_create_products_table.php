@@ -24,7 +24,6 @@ return new class extends Migration
             $table->timestamps();
 
             // Define foreign key constraint with the companies table
-            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

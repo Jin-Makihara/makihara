@@ -19,15 +19,14 @@
                 </div>
                 <div class="form-group">
                     <label for="company_name">メーカー名</label>
-                    <select name="maker" id="maker">
-                    <option value="0" {{ request('maker') == 0 ? 'selected' : '' }}>選択してください</option>
-                    @foreach($companies as $company)
-                        <option value="{{ $company->id }}" {{ request('maker') == $company->id ? 'selected' : '' }}>
-                            {{ $company->company_name }}
-                        </option>
-                    @endforeach
-                    </select>
-                    <!--<input type="text" name="company_name" id="company_name" required>-->
+                    <input type="text" name="company_name" id="company_name" required>
+                    <!--<select name="maker" id="maker">
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" {{ request('maker') == $company->id ? 'selected' : '' }}>
+                                {{ $company->company_name }}
+                            </option>
+                        @endforeach
+                    </select>-->
 
                 </div>
                 <div class="form-group">

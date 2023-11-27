@@ -67,9 +67,9 @@ class Product extends Model
         return $products;
     }
     
+    //下の部分は見てもらっている(11/16)
     public function storeProduct($company,$request)
     {
-        $company = Company::where('company_name', $request->input('company_name'))->first();
         if (!$company) {
             $company = new Company();
             $company->company_name = $request->input('company_name');
@@ -91,6 +91,38 @@ class Product extends Model
         $product->save();
         return $company;
 
+    }
+    //ここまでがみてもらっている
+
+    //ここからupdate
+    public function updateProduct($request,$id)
+    {
+        // プロダクトの更新
+        $product = Product::findOrFail($id);
+
+        // メーカー名でCompanyテーブルを検索
+        $company = Company::where('company_name', $request->input('company_name'))->first();
+
+        // メーカーが存在しない場合は新しいレコードを作成
+        if (!$company) {
+            $company = new Company();
+            $company->company_name = $request->input('company_name');
+            $company->save();
+        }
+
+        $product->product_name = $request->input('product_name');
+        $product->company_id = $company->id;
+        $product->price = $request->input('price');
+        $product->stock = $request->input('stock');
+        $product->comment = $request->input('comment');
+
+        // 商品画像を保存
+        if ($request->hasFile('product_image')) {
+            $imagePath = $request->file('product_image')->store('product_images', 'public');
+            $product->img_path = $imagePath;
+        }
+        $product->save();
+        return $product;
     }
 
 }

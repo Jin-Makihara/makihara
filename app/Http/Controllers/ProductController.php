@@ -20,6 +20,29 @@ class ProductController extends Controller
             $products = $model->searchProduct($searchKeyword, $selectedMaker);
             return view('products.index', compact('products', 'companies'));
         }
+
+        // 非同期で呼び出される検索API (非同期なのでJSONで応答し、クライアントでテーブルを作る)
+        public function search(Request $request)
+        {
+            $searchKeyword = $request->input('search', '');
+            $selectedMaker = $request->input('maker', 0);
+            // 値段の下限上限取得
+            $priceLower = $request->input('price_lower', '');
+            $priceUpper = $request->input('price_upper', '');
+            // 在庫数の下限上限取得
+            $stockLower = $request->input('stock_lower', '');
+            $stockUpper = $request->input('stock_upper', '');
+
+            $companies = Company::all();
+            $model = new Product();
+            $products = $model->searchProductDetail($searchKeyword, $selectedMaker,  $priceLower, $priceUpper,
+                                              $stockLower, $stockUpper);
+            foreach($products as $product) {
+                $product->company_name = $product->company->company_name;
+            }
+            return response()->json($products);
+        }
+
         //登録
         public function create()
         {
@@ -114,6 +137,6 @@ class ProductController extends Controller
                 DB::rollback();
                 return back();
             }
-            return redirect()->route('products')->with('success', '商品が削除されました。');
+            return response()->json([ "result" => "success" ]);
         }
 }

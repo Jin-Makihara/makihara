@@ -14,6 +14,7 @@ Route::post('/register', [RegistrationController::class, 'register'])->name('reg
 
 Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{id}/show', [ProductController::class, 'show'])->name('products.show');

@@ -66,7 +66,55 @@ class Product extends Model
         $products = $query->get();
         return $products;
     }
-    
+
+    public function searchProductDetail($searchKeyword,$selectedMaker,  $priceLower, $priceUpper,
+                                  $stockLower, $stockUpper)
+    {
+        $query = Self::query();
+
+        if (!empty($searchKeyword)) {
+            $query->where(function ($query) use ($searchKeyword) {
+                $query->where('product_name', 'like', '%' . $searchKeyword . '%')
+                    ->orWhere('comment', 'like', '%' . $searchKeyword . '%');
+            });
+        }
+
+        if ($selectedMaker != 0) {
+            $query->where('company_id', $selectedMaker);
+        }
+
+        if (!empty($priceLower) && !empty($priceUpper)) {
+            $query->whereBetween('price', [$priceLower, $priceUpper]);
+        }
+
+        if (!empty($stockLower) && !empty($stockUpper)) {
+            $query->whereBetween('stock', [$stockLower, $stockUpper]);
+        }
+        //  idの降順ソート
+        $products = $query->orderBy('id', 'desc')->get();
+
+        return $products;
+    }
+
+    //  販売処理 存在しないもしくは在庫0はエラー
+    public function sellProduct($id)
+    {
+        $query = Self::query();
+        $query->where('id', $id);
+        $product = $query->get()->first();
+        if ($product == null) {
+            return false;
+        }
+
+        if ($product->stock <= 0) {
+            return false;        
+        }
+
+        $product->stock -= 1;
+        $product->save();
+        return true;
+    }
+
     //下の部分は見てもらっている(11/16)
     public function storeProduct($company,$request)
     {
